@@ -9,21 +9,47 @@ namespace CprBrokerPartIntegrationExample
         {
             try
             {
-                string input = args[0];
+                string inputCprNo = args[0];
+                string inputAppToken = args[1];
+
                 PartSoap12Client client = new PartSoap12Client();
 
+                // Conf. SOAP header
                 ApplicationHeader appHeader = new ApplicationHeader();
-                appHeader.ApplicationToken = "656d476b-6af4-43c8-955a-a498e8903aff";
+                appHeader.ApplicationToken = inputAppToken;
                 appHeader.UserToken = Environment.UserName;
 
-                var uuidResult = client.GetUuidAsync(appHeader, input);
+                // Call Part.GetUuid
+                var uuidResult = client.GetUuidAsync(appHeader, inputCprNo);
                 string uuid = uuidResult.Result.GetUuidOutput.UUID;
-                Console.WriteLine(uuid);
-                Console.WriteLine(appHeader.UserToken);
+
+                Console.WriteLine(string.Format("Part.GetUuid output: {0}", uuid));
+
+                // Additional configuration of SOAP Envelope header for Part.Read
+                SourceUsageOrderHeader suoh = new SourceUsageOrderHeader();
+                suoh.SourceUsageOrder = SourceUsageOrder.LocalThenExternal;
+
+                LaesInputType lit = new LaesInputType();
+                lit.UUID = uuid;
+
+                // Call Part.Read
+                var readResult = client.ReadAsync(appHeader, suoh, lit);
+
+                // Serializing response, and extracting name element...?
+                var regType1 = readResult.Result.LaesOutput.LaesResultat.Item as RegistreringType1;
+                var personNameStructure = regType1.AttributListe.Egenskab[0].NavnStruktur.PersonNameStructure;
+
+                string person = string.Format("Part.Read output: {0} {1}",
+                    personNameStructure.PersonGivenName,
+                    //personNameStructure.PersonMiddleName,
+                    personNameStructure.PersonSurnameName
+                );
+
+                Console.WriteLine(person);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(string.Format("\n{0}\n", ex.ToString()));
             }
             
         }

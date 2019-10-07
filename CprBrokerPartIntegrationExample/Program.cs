@@ -1,5 +1,7 @@
 ﻿using ServiceReference1;
 using System;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace CprBrokerPartIntegrationExample
 {
@@ -11,8 +13,12 @@ namespace CprBrokerPartIntegrationExample
             {
                 string inputCprNo = args[0];
                 string inputAppToken = args[1];
+                string endpointAddress = args[2];
 
-                PartSoap12Client client = new PartSoap12Client();
+                PartSoap12Client client = new PartSoap12Client(
+                    Program.GetCustomHttpsBinding(),
+                    new EndpointAddress(endpointAddress)
+                    );
 
                 // Conf. SOAP header
                 ApplicationHeader appHeader = new ApplicationHeader();
@@ -51,7 +57,26 @@ namespace CprBrokerPartIntegrationExample
             {
                 Console.WriteLine(string.Format("\n{0}\n", ex.ToString()));
             }
-            
+        }
+
+        public static CustomBinding GetCustomHttpsBinding()
+        {
+            CustomBinding binding = new CustomBinding();
+
+            TextMessageEncodingBindingElement textBindingElement = new TextMessageEncodingBindingElement();
+            textBindingElement.MessageVersion = System.ServiceModel.Channels.MessageVersion.CreateVersion(System.ServiceModel.EnvelopeVersion.Soap12, System.ServiceModel.Channels.AddressingVersion.None);
+            binding.Elements.Add(textBindingElement);
+
+            HttpsTransportBindingElement httpsBindingElement = new HttpsTransportBindingElement
+            {
+                AllowCookies = true,
+                MaxBufferSize = int.MaxValue,
+                MaxReceivedMessageSize = int.MaxValue,
+                AuthenticationScheme = System.Net.AuthenticationSchemes.Negotiate
+            };
+            binding.Elements.Add(httpsBindingElement);
+
+            return binding;
         }
     }
 }

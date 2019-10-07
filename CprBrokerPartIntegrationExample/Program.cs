@@ -63,8 +63,12 @@ namespace CprBrokerPartIntegrationExample
         {
             CustomBinding binding = new CustomBinding();
 
+            // PartSoap12Client.GetBindingForEndpoint() used as reference.
             TextMessageEncodingBindingElement textBindingElement = new TextMessageEncodingBindingElement();
-            textBindingElement.MessageVersion = System.ServiceModel.Channels.MessageVersion.CreateVersion(System.ServiceModel.EnvelopeVersion.Soap12, System.ServiceModel.Channels.AddressingVersion.None);
+            textBindingElement.MessageVersion = System.ServiceModel.Channels.MessageVersion.CreateVersion(
+                System.ServiceModel.EnvelopeVersion.Soap12,
+                System.ServiceModel.Channels.AddressingVersion.None
+                );
             binding.Elements.Add(textBindingElement);
 
             HttpsTransportBindingElement httpsBindingElement = new HttpsTransportBindingElement

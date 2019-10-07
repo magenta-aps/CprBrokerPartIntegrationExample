@@ -13,4 +13,4 @@
 > dotnet .\CprBrokerPartIntegrationExample.dll \<CprNo\> \<CprBrokerApplicationToken\> \<EndpointAddress\>
 
 Example:
-> dotnet .\CprBrokerPartIntegrationExample.dll 0123456789 a5c11e37-2b00-4368-a58b-55c540aa00a9 https://<CprBroker>/Services/Part.asmx
+> dotnet .\CprBrokerPartIntegrationExample.dll 0123456789 a5c11e37-2b00-4368-a58b-55c540aa00a9 https://\<CprBroker>\/Services/Part.asmx

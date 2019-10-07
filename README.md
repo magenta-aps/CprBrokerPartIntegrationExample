@@ -7,7 +7,8 @@
 2) Open project in Visual Studio.
 3) Build project.
 <br/>3.1) From here you can run the program locally from project from "CprBrokerPartIntegrationExample\CprBrokerPartIntegrationExample\bin\Debug\netcoreapp2.1\". 
-<br/>3.2) Publish project if you need to move the program elsewhere, e.g. to a remote server. Remember that you need to install the respective version of .NET Core runtime. output folder: "CprBrokerPartIntegrationExample\CprBrokerPartIntegrationExample\bin\Debug\netcoreapp2.1\publish\".
+<br/>3.2) Publish project if you need to move the program elsewhere, e.g. to a remote server. Remember that you need to install the respective version of .NET Core runtime. 
+<br/> Publish output folder: "CprBrokerPartIntegrationExample\CprBrokerPartIntegrationExample\bin\Debug\netcoreapp2.1\publish\".
 4) Executing the program, by changing dir to the publish folder, and then run:
 > dotnet .\CprBrokerPartIntegrationExample.dll \<CprNo\> \<CprBrokerApplicationToken\>
 

@@ -10,7 +10,7 @@
 <br/>3.2) Publish project if you need to move the program elsewhere, e.g. to a remote server. Remember that you need to install the respective version of .NET Core runtime. 
 <br/> Publish output folder: "CprBrokerPartIntegrationExample\CprBrokerPartIntegrationExample\bin\Debug\netcoreapp2.1\publish\".
 4) Executing the program, by changing dir to the publish folder, and then run:
-> dotnet .\CprBrokerPartIntegrationExample.dll \<CprNo\> \<CprBrokerApplicationToken\>
+> dotnet .\CprBrokerPartIntegrationExample.dll \<CprNo\> \<CprBrokerApplicationToken\> \<EndpointAddress\>
 
 Example:
-> dotnet .\CprBrokerPartIntegrationExample.dll 0123456789 a5c11e37-2b00-4368-a58b-55c540aa00a9
+> dotnet .\CprBrokerPartIntegrationExample.dll 0123456789 a5c11e37-2b00-4368-a58b-55c540aa00a9 https://<CprBroker>/Services/Part.asmx
